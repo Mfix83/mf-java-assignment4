@@ -1,4 +1,4 @@
-package com.coderscampus; 
+package com.coderscampus;
 
 import java.io.FileWriter;
 import java.io.BufferedReader;
@@ -9,9 +9,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Main { 
+public class Main {
     public static void main(String[] args) {
-        String csvFile = "data/StudentList.csv"; 
+        String csvFile = "data/StudentList.csv";
         List<String[]> studentDataList = new ArrayList<>();
         List<String[]> course1Students = new ArrayList<>();
         List<String[]> course2Students = new ArrayList<>();
@@ -19,7 +19,7 @@ public class Main {
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String line;
-            br.readLine(); 
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] studentData = line.split(",");
                 studentDataList.add(studentData);
@@ -29,20 +29,22 @@ public class Main {
         }
 
         for (String[] studentData : studentDataList) {
-            String course = studentData[2].trim(); 
-            if (course.equals("COMPSCI 321")) {
+            String course = studentData[2].trim();
+            if (course.equals("COMPSCI 310") || course.equals("COMPSCI 311") || course.equals("COMPSCI 312")) {
                 course1Students.add(studentData);
-            } else if (course.equals("STAT 239")) {
+            } else if (course.equals("APMTH 129") || course.equals("APMTH 130") || course.equals("APMTH 131")) {
                 course2Students.add(studentData);
-            } else if (course.equals("COMPSCI 312")) {
+            } else if (course.equals("STAT 234") || course.equals("STAT 235") || course.equals("STAT 236")) {
                 course3Students.add(studentData);
             }
         }
 
+        
         Collections.sort(course1Students, new GradeComparator());
         Collections.sort(course2Students, new GradeComparator());
         Collections.sort(course3Students, new GradeComparator());
 
+        
         writeStudentsToCSV(course1Students, "course1.csv");
         writeStudentsToCSV(course2Students, "course2.csv");
         writeStudentsToCSV(course3Students, "course3.csv");
@@ -63,9 +65,9 @@ public class Main {
     static class GradeComparator implements Comparator<String[]> {
         @Override
         public int compare(String[] student1, String[] student2) {
-            int grade1 = Integer.parseInt(student1[3].trim()); 
+            int grade1 = Integer.parseInt(student1[3].trim());
             int grade2 = Integer.parseInt(student2[3].trim());
-            return Integer.compare(grade2, grade1); 
+            return Integer.compare(grade2, grade1);
         }
     }
 }
