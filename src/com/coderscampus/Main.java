@@ -29,7 +29,8 @@ public class Main {
         }
 
         for (String[] studentData : studentDataList) {
-            String course = studentData[2].trim();
+            String course = studentData[2].trim(); // Trim the course code
+
             if (course.equals("COMPSCI 310") || course.equals("COMPSCI 311") || course.equals("COMPSCI 312")) {
                 course1Students.add(studentData);
             } else if (course.equals("APMTH 129") || course.equals("APMTH 130") || course.equals("APMTH 131")) {
@@ -39,12 +40,10 @@ public class Main {
             }
         }
 
-        
         Collections.sort(course1Students, new GradeComparator());
         Collections.sort(course2Students, new GradeComparator());
         Collections.sort(course3Students, new GradeComparator());
 
-        
         writeStudentsToCSV(course1Students, "course1.csv");
         writeStudentsToCSV(course2Students, "course2.csv");
         writeStudentsToCSV(course3Students, "course3.csv");
